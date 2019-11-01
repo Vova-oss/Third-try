@@ -16,12 +16,14 @@ public class MyView extends View {
 
     protected void onDraw(Canvas canvas) {
         Paint paint = new Paint();
-        paint.setColor(Color.YELLOW);
+        paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(500, 500, 200, paint);
-        paint.setColor(Color.RED);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(20);
-        canvas.drawCircle(500, 500, 200, paint);
+        paint.setStrokeWidth(5);
+        int y=0;
+        while(y<getHeight()){
+        canvas.drawLine(0, y, this.getWidth(), y,paint);
+        y+=40;
+        }
     }
 }
