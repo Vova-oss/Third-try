@@ -16,9 +16,17 @@ public class MyView extends View {
 
     protected void onDraw(Canvas canvas) {
         Paint paint = new Paint();
-        paint.setColor(Color.BLUE);
-        paint.setStyle(Paint.Style.FILL);
-        canvas.drawRect(100, 100, 300, 300, paint);
+        float y = 0,x=0,z=0;
+        paint.setColor(Color.BLACK);
+        paint.setStrokeWidth(10);
+
+
+        while (z < canvas.getHeight()){z +=1; }
+
+        while (x<z*2){
+            canvas.drawLine(x,0,0,y,paint);
+            x+=30;
+            y+=30;
+        }
     }
 }
-
