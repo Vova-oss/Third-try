@@ -16,17 +16,27 @@ public class MyView extends View {
 
     protected void onDraw(Canvas canvas) {
         Paint paint = new Paint();
-        float y = 0,x=0,z=0;
+        paint.setColor(Color.BLUE);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(300, 300, 2000, paint);
+        float y=0,x=0;
         paint.setColor(Color.BLACK);
         paint.setStrokeWidth(10);
-
-
-        while (z < canvas.getHeight()){z +=1; }
-
-        while (x<z*2){
+        while (y<getHeight()){
             canvas.drawLine(x,0,0,y,paint);
             x+=30;
             y+=30;
         }
+        float w=0,t=0;
+        while (w<getHeight()){
+            canvas.drawLine(0,w,t,0,paint);
+            w+=30;
+            t+=30;
+        }
+        paint.setColor(Color.GRAY);
+        paint.setStyle(Paint.Style.STROKE);
+        canvas.drawCircle(760, 1263, 320, paint);
+
     }
+
 }
