@@ -1,22 +1,25 @@
 package com.example.sram1;
 
 import java.lang.Override;
+import java.util.concurrent.TimeUnit;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
-
+import java.lang.InterruptedException;
 import static android.graphics.Color.rgb;
 
 public class MyView extends View {
     public MyView(Context context) {
         super(context);for (int i = 0; i < N; i++){
-            x[i] = (float)(Math.random() );
-            y[i] = (float)(Math.random() );
-            vx[i] = (float)(Math.random()*10 );
-            vy[i] = (float)(Math.random()*10 );
-            rr[i]=(float)(Math.random() );
+            fillRandom(x,0,500);
+            fillRandom(y,0,500);
+            fillRandom(vx,0,1);
+            fillRandom(vy,0,1);
+            fillRandom(rr,0,30);
+
             k[i]=0;
             v[i]=0;
             g[i]=0;
@@ -49,6 +52,21 @@ public class MyView extends View {
     float[] z = new float[N];
     float[] q = new float[N];
     int re=255,gr=0,bl=0;
+
+    float rand(float min,float max){
+        return (float)((Math.random()-min)/(max-min+1))+min;
+    }
+    void fillRandom(float [] array,float min, float max){
+        for(int i=0;i<array.length;i++){
+            array[i]=rand (min,max);
+        }
+    }
+
+    void addValues(float[] array,float[] values){
+        for (int i=0;i<array.length;i++){
+            array[i]+= values[i];
+        }
+    }
     @Override
 
     protected void onDraw(Canvas canvas) {
@@ -57,11 +75,18 @@ public class MyView extends View {
             paint.setColor(Color.rgb(re,gr,bl));
             canvas.drawCircle(x[i], y[i], r[i], paint);
         }
+
+
+
         // готовим массивы x и у для следущего кадра
         for (int i = 0; i < N; i++) {
-            if(x[i]<this.getWidth()&&k[i]==0){x[i] += vx[i];}else {k[i]=1;;while(x[i]>0){x[i] -= vx[i];break;}if(x[i]<5){k[i]=0;}}
-            if(y[i]<this.getHeight()&&v[i]==0){y[i] += vy[i];}else {v[i]=1;;while(y[i]>0){y[i] -= vy[i];break;}if(y[i]<5){v[i]=0;}}
-            if(r[i]<50&&g[i]==0){r[i] += rr[i];}else {g[i]=1;;while(r[i]>0){r[i] -= rr[i];break;}if(r[i]<5){g[i]=0;}}
+            addValues(x, vx);
+            addValues(y, vy);
+            if (x[i] < 0 || x[i] > this.getWidth()){ vx[i] = - vx[i]; }
+            if (y[i] < 0 || y[i] > this.getHeight()){ vy[i] = - vy[i]; }
+
+
+        if(r[i]<100&&g[i]==0){r[i] += rr[i];}else {g[i]=1;;while(r[i]>-100){r[i] -= rr[i];break;}if(r[i]<-95){g[i]=0;}}
 
 
     }
