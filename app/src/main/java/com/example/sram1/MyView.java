@@ -16,9 +16,9 @@ public class MyView extends View {
         super(context);for (int i = 0; i < N; i++){
             fillRandom(x,0,500);
             fillRandom(y,0,500);
-            fillRandom(vx,0,1);
-            fillRandom(vy,0,1);
-            fillRandom(rr,0,30);
+            fillRandom(vx,0,10);
+            fillRandom(vy,0,10);
+            fillRandom(rr,0,1);
 
             k[i]=0;
             v[i]=0;
@@ -52,9 +52,11 @@ public class MyView extends View {
     float[] z = new float[N];
     float[] q = new float[N];
     int re=255,gr=0,bl=0;
-
+    float rad = 40;
+    float max = 15;
+    float min = 6;
     float rand(float min,float max){
-        return (float)((Math.random()-min)/(max-min+1))+min;
+        return (float)(Math.random()*(max-min+1))+min;
     }
     void fillRandom(float [] array,float min, float max){
         for(int i=0;i<array.length;i++){
@@ -67,39 +69,44 @@ public class MyView extends View {
             array[i]+= values[i];
         }
     }
+    void drawBalls(Canvas canvas)
+    {
+        Paint paint = new Paint();
+        for (int i = 0; i < N; i++) {
+            paint.setColor(Color.rgb(re,gr,bl));
+            paint.setStyle(Paint.Style.FILL);
+            canvas.drawCircle(x[i], y[i], r[i], paint);
+
+
+        }
+        if(re==255&&gr==0&&bl!=255){bl+=1;}
+        else if(re==0&&gr!=255&&bl==255){gr+=1;}
+        else if (re==0&&gr==255&&bl!=0){bl-=1;}
+        else if (re!=255&&gr==255&&bl==0){re+=1;}
+        else if (re==255&&gr!=0&&bl==0){gr-=1;}
+        else if(re!=0&&gr==0&&bl==255){re-=1;}
+
+}
     @Override
 
     protected void onDraw(Canvas canvas) {
-
+        super.onDraw(canvas);
+        drawBalls(canvas);
+        Paint paint = new Paint();
+        addValues(x, vx);
+        addValues(y, vy);
+        addValues(r, rr);
         for (int i = 0; i < N; i++) {
-            paint.setColor(Color.rgb(re,gr,bl));
-            canvas.drawCircle(x[i], y[i], r[i], paint);
+            if (x[i] < 0 || x[i] > this.getWidth()){
+                vx[i] = - vx[i];
+            }
+            if (y[i] < 0 || y[i] > this.getHeight()){
+                vy[i] = - vy[i];
+            }
+            if (r[i] < -50 || r[i] > 100){
+                rr[i] = - rr[i];
+            }
         }
-
-
-
-        // готовим массивы x и у для следущего кадра
-        for (int i = 0; i < N; i++) {
-            addValues(x, vx);
-            addValues(y, vy);
-            if (x[i] < 0 || x[i] > this.getWidth()){ vx[i] = - vx[i]; }
-            if (y[i] < 0 || y[i] > this.getHeight()){ vy[i] = - vy[i]; }
-
-
-        if(r[i]<100&&g[i]==0){r[i] += rr[i];}else {g[i]=1;;while(r[i]>-100){r[i] -= rr[i];break;}if(r[i]<-95){g[i]=0;}}
-
-
-    }
-          if(re==255&&gr==0&&bl!=255){bl+=1;}
-            else if(re==0&&gr!=255&&bl==255){gr+=1;}
-            else if (re==0&&gr==255&&bl!=0){bl-=1;}
-            else if (re!=255&&gr==255&&bl==0){re+=1;}
-            else if (re==255&&gr!=0&&bl==0){gr-=1;}
-            else if(re!=0&&gr==0&&bl==255){re-=1;}
-
-
-
-
 
         invalidate();
     }
