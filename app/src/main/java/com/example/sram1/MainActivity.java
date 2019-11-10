@@ -25,6 +25,7 @@ public class MainActivity extends Activity implements OnClickListener,
     int [][] flages;
     int[] Y1;
     int pov=0;
+    int kk=10;
     int min = 1;
     int numk = 0;
     int max = 5;
@@ -35,7 +36,7 @@ public class MainActivity extends Activity implements OnClickListener,
         setContentView(R.layout.cells);
         makeCells();
 
-        generate();
+        generate1();
     }
 
 
@@ -83,7 +84,28 @@ public class MainActivity extends Activity implements OnClickListener,
     }
     }
     */
-    void generate () {
+    void generate1 () {
+        for (int i = 0; i < HEIGHT - 1; i++)
+            for (int j = 0; j < WIDTH; j++) {
+                cells[i][j].setOnClickListener(this);
+                cells[i][j].setOnLongClickListener(this);
+                cells[i][j].setBackgroundColor(Color.WHITE);
+                cells[i][j].setText("");
+            }
+        for (int i = HEIGHT - 1; i < HEIGHT; i++)
+            for (int j = 0; j < 1; j++) {
+                cells[i][j].setOnClickListener(this);
+                cells[i][j].setOnLongClickListener(this);
+                cells[i][j].setBackgroundColor(Color.YELLOW);
+                cells[i][j].setText("↺");
+            }
+        mines = new int[11][11];
+        for (int i = 0; i < HEIGHT-1; i++)
+            for (int j = 0; j < WIDTH; j++) {
+                mines[i][j] = 0;}
+
+    }
+    void generate (int k,int YY,int XX) {
         for (int i = 0; i < HEIGHT-1; i++)
             for (int j = 0; j < WIDTH; j++) {
                 cells[i][j].setOnClickListener(this);
@@ -107,17 +129,19 @@ public class MainActivity extends Activity implements OnClickListener,
             for (int j = 0; j < WIDTH; j++) {
                 mines[i][j] = 0; colls[i][j] = 0;flages[i][j] = 0;
             }
-        for (int i = 0; i < HEIGHT-1; i++)
+        while (kk>0){
+        for (int i = 0; i < HEIGHT-1; i++){
             for (int j = 0; j < WIDTH; j++) {
-                if (num > 0.8) {
+                if (num > 0.99&& mines[i][j]== 0&&i!=YY&&j!=XX) {
                     mines[i][j] = 1;
 
-                   //cells[i][j].setText("X");
+                  cells[i][j].setText("X");
+                    kk--;if(kk==0){break;}
 
 
                 }
                 num = Math.random();
-            }
+            }if(k==0){break;}}}
     }
 
     public void Found(int Y,int X){
@@ -151,9 +175,15 @@ public class MainActivity extends Activity implements OnClickListener,
 //Получаем координтаты нажатой клетки
         int tappedX = getX(tappedCell);
         int tappedY = getY(tappedCell);
-
-        int k=0;
-
+int k=0;
+        if (yu==0) {
+            for (int i = 0; i < HEIGHT - 1; i++) {
+                for (int j = 0; j < WIDTH; j++) {
+                    if (mines[i][j] == 1) {yu=1;}
+                }
+            }
+        }
+       if (yu==0){generate(kk,tappedY,tappedX);yu=2;}
 
         boolean tr=false;
 
@@ -164,8 +194,10 @@ public class MainActivity extends Activity implements OnClickListener,
                     cells[i][j].setText("");
                     win=0;
                     pov=0;
+                    kk=10;
                 }
-            generate();
+            yu=0;
+            generate1();
         }
        // else if(win==0&&pov==1){ Toast.makeText(this, "ВЫ ПОБЕДИЛИ", Toast.LENGTH_LONG).show();}
        // else if(win==1&&pov==0){ Toast.makeText(this, "ВЫ ПРОИГРАЛИ", Toast.LENGTH_LONG).show();}
@@ -174,28 +206,13 @@ public class MainActivity extends Activity implements OnClickListener,
             for (int i = 0; i < HEIGHT-1; i++)
                 for (int j = 0; j < WIDTH; j++) {win=1;
                     if(mines[i][j]==1){cells[i][j].setText("\uD83D\uDCA3");} }
-/*
-                    for ( i = tappedY - 1; i < tappedY + 2; i++)
-                        for ( j = tappedX - 1; j < tappedX + 2; j++) {
-                            if (i > -1 && j > -1 && i < 9 && j < 7 && mines[i][j] == 1) {
-                                numk++;
-                            }
-                        }
-                    String Num = String.valueOf(numk);
-                    cells[tappedY][tappedX].setText(Num);
-*/
+
+            for (int i = 0; i < HEIGHT-1; i++)
+                for (int j = 0; j < WIDTH; j++) {win=1;
+                    if(mines[i][j]==0&&cells[i][j].getText()=="\uD83D\uDEA9"){cells[i][j].setBackgroundColor(Color.RED);} }
+
         } else if (mines[tappedY][tappedX] == 0&&tappedY<9&&win==0){
-
-           /* for (int i = tappedY - 1; i < tappedY + 2; i++)
-                for (int j = tappedX - 1; j < tappedX + 2; j++) {
-                    if (i > -1 && j > -1 && i < 9 && j < 7 && mines[i][j] == 1) {
-                        numk++;
-                    }
-                }
-            String Num = String.valueOf(numk);
-            cells[tappedY][tappedX].setText(Num);*/
-
-           Found(tappedY,tappedX);
+            Found(tappedY,tappedX);
                numk=0;
 
             for (int i = 0; i < HEIGHT-1; i++){
@@ -209,7 +226,7 @@ public class MainActivity extends Activity implements OnClickListener,
                     pov=1;
                 for (int i = 0; i < HEIGHT-1; i++)
                     for (int j = 0; j < WIDTH; j++) {
-                        if(mines[i][j]==1){cells[i][j].setText("\uD83D\uDCA3");}}
+                        if(mines[i][j]==1){cells[i][j].setText("\uD83D\uDEA9");}}
 
                }
 
