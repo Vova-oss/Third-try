@@ -21,11 +21,14 @@ public class MainActivity extends Activity implements OnClickListener,
     private int HEIGHT = 10;
     int[][] mines;
     private Button[][] cells;
-    private Button[][] colls;
+    int[][] colls;
+    int [][] flages;
     int[] Y1;
     int pov=0;
     int min = 1;
+    int numk = 0;
     int max = 5;
+    int yu=0;
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,21 +101,47 @@ public class MainActivity extends Activity implements OnClickListener,
 
         double num = Math.random();
         mines = new int[11][11];
+        colls = new int[11][11];
+        flages= new int[11][11];
         for (int i = 0; i < HEIGHT-1; i++)
             for (int j = 0; j < WIDTH; j++) {
-                mines[i][j] = 0;
+                mines[i][j] = 0; colls[i][j] = 0;flages[i][j] = 0;
             }
         for (int i = 0; i < HEIGHT-1; i++)
             for (int j = 0; j < WIDTH; j++) {
                 if (num > 0.8) {
                     mines[i][j] = 1;
 
-                   cells[i][j].setText("X");
+                   //cells[i][j].setText("X");
 
 
                 }
                 num = Math.random();
             }
+    }
+
+    public void Found(int Y,int X){
+     if(Y>-1&&X>-1&&Y<9&&X<7) {
+         for (int i = Y - 1; i < Y + 2; i++)
+             for (int j = X - 1; j < X + 2; j++) {
+                 if (i > -1 && j > -1 && i < 9 && j < 7 && mines[i][j] == 1) {
+                     numk++;
+                 }
+             }colls[Y][X]=1;
+     }
+        String Num = String.valueOf(numk);
+        if (flages [Y][X]==0)cells[Y][X].setText(Num);
+        if (numk==0){
+            if(Y>0&&colls[Y-1][X]==0&&flages [Y-1][X]==0){Found(Y-1,X);}
+            if(X<6&&Y>0&&colls[Y-1][X+1]==0&&flages [Y-1][X+1]==0){Found(Y-1,X+1);}
+            if(X<6&&colls[Y][X+1]==0&&flages [Y][X+1]==0){Found(Y,X+1);}
+           if(X<6&&Y<8&&colls[Y+1][X+1]==0&&flages [Y+1][X+1]==0){Found(Y+1,X+1);}
+            if(Y<8&&colls[Y+1][X]==0&&flages [Y+1][X]==0){Found(Y+1,X);}
+            if(X>0&&Y<8&&colls[Y+1][X-1]==0&&flages [Y+1][X-1]==0)Found(Y+1,X-1);
+            if(X>0&&colls[Y][X-1]==0&&flages [Y][X-1]==0)Found(Y,X-1);
+            if(X>0&&Y>0&&colls[Y-1][X-1]==0&&flages [Y-1][X-1]==0)Found(Y-1,X-1);
+            }
+        numk=0;
     }
 
     @Override
@@ -122,9 +151,9 @@ public class MainActivity extends Activity implements OnClickListener,
 //Получаем координтаты нажатой клетки
         int tappedX = getX(tappedCell);
         int tappedY = getY(tappedCell);
-        int numk = 0;
+
         int k=0;
-        int yu=0;
+
 
         boolean tr=false;
 
@@ -138,11 +167,9 @@ public class MainActivity extends Activity implements OnClickListener,
                 }
             generate();
         }
-        else if(win==0&&pov==1){ Toast.makeText(this, "ВЫ ПОБЕДИЛИ", Toast.LENGTH_LONG).show();}
-        else if(win==1&&pov==0){ Toast.makeText(this, "ВЫ ПРОИГРАЛИ", Toast.LENGTH_LONG).show();}
-        else if (mines[tappedY][tappedX] == 1){
-
-            Toast.makeText(this, "ВЫ ПРОИГРАЛИ", Toast.LENGTH_LONG).show();
+       // else if(win==0&&pov==1){ Toast.makeText(this, "ВЫ ПОБЕДИЛИ", Toast.LENGTH_LONG).show();}
+       // else if(win==1&&pov==0){ Toast.makeText(this, "ВЫ ПРОИГРАЛИ", Toast.LENGTH_LONG).show();}
+        else if (mines[tappedY][tappedX] == 1){ Toast.makeText(this, "ВЫ ПРОИГРАЛИ", Toast.LENGTH_LONG).show();
 
             for (int i = 0; i < HEIGHT-1; i++)
                 for (int j = 0; j < WIDTH; j++) {win=1;
@@ -157,21 +184,19 @@ public class MainActivity extends Activity implements OnClickListener,
                     String Num = String.valueOf(numk);
                     cells[tappedY][tappedX].setText(Num);
 */
-
-
-
-
-
         } else if (mines[tappedY][tappedX] == 0&&tappedY<9&&win==0){
 
-            for (int i = tappedY - 1; i < tappedY + 2; i++)
+           /* for (int i = tappedY - 1; i < tappedY + 2; i++)
                 for (int j = tappedX - 1; j < tappedX + 2; j++) {
                     if (i > -1 && j > -1 && i < 9 && j < 7 && mines[i][j] == 1) {
                         numk++;
                     }
                 }
             String Num = String.valueOf(numk);
-            cells[tappedY][tappedX].setText(Num);
+            cells[tappedY][tappedX].setText(Num);*/
+
+           Found(tappedY,tappedX);
+               numk=0;
 
             for (int i = 0; i < HEIGHT-1; i++){
                 for (int j = 0; j < WIDTH; j++){if (mines[i][j]==0&&cells[i][j].getText()==""){
@@ -211,9 +236,9 @@ public class MainActivity extends Activity implements OnClickListener,
         int tappedY = getY(tappedCell);
 
         if (cells[tappedY][tappedX].getText() == "") {
-            cells[tappedY][tappedX].setText("\uD83D\uDEA9");
+            cells[tappedY][tappedX].setText("\uD83D\uDEA9");flages [tappedY][tappedX]=1;
         } else if (cells[tappedY][tappedX].getText() == "\uD83D\uDEA9")
-            cells[tappedY][tappedX].setText(OB);
+        {cells[tappedY][tappedX].setText(OB);flages [tappedY][tappedX]=0;}
 
 
         return true;
