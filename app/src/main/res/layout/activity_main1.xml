@@ -9,10 +9,10 @@
     tools:context="com.example.myapplication.MainActivity">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:text="@string/title" />
+        android:layout_height="30dp"
+        android:text="@string/квадратноеуравнение" />
 
     <EditText
         android:id="@+id/coefficient_a"
@@ -21,32 +21,30 @@
         android:hint="@string/a" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/coefficient_b"
-        android:hint="@string/b"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/b" />
+
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/coefficient_c"
-        android:hint="@string/c"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/c" />
+
     <Button
+        android:id="@+id/buton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="solveEquation"
-        android:text="@string/calculate"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:id="@+id/result"/>
+        android:onClick="solveEquation1"
+        android:text="@string/calculate" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="378dp">
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="316dp"
@@ -57,6 +55,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.876" />
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="214dp"
+            android:layout_height="36dp"
+            android:text="@string/пусто"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.019" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
