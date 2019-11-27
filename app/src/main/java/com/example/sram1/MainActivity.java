@@ -17,7 +17,8 @@ import org.w3c.dom.Text;
 public class MainActivity extends Activity implements OnClickListener, OnLongClickListener,Enemies,Search,Clrscr {
         public  int WIDTH = 8;
         public  int HEIGHT = 8;
-        int block=0;
+        public String hod;
+        int block;
         int bwin=0;
         int chwin=0;
         public static Button[][] cells;
@@ -36,7 +37,8 @@ public class MainActivity extends Activity implements OnClickListener, OnLongCli
     }
 
     void makeCells () {
-         block=0;
+        block=0;
+        hod="b";
         cells = new Button[HEIGHT][WIDTH];
         GridLayout cellsLayout = (GridLayout) findViewById(R.id.CellsLayout);
         cellsLayout.removeAllViews();
@@ -187,23 +189,32 @@ public class MainActivity extends Activity implements OnClickListener, OnLongCli
          tappedX = getX(tappedCell);
          tappedY = getY(tappedCell);
          enemies();
-        if (gertva[tappedY][tappedX]&&block==0) {search();cells[tappedY][tappedX].setText(l);clrscr(); }//клик по жертве
+        if (gertva[tappedY][tappedX]&&block==0) {
+            search();cells[tappedY][tappedX].setText(l);clrscr();
+            if( hod.equals("b")){hod="ch";} else hod="b";
+        }//клик по жертве
 
-        else if (cells[tappedY][tappedX].getText()=="♚"&&block==0) {useFigyr(chKorol);}//клик по черному королю
-        else if (cells[tappedY][tappedX].getText()=="♔"&&block==0) {useFigyr(bKorol);}//клик по белому королю
-        else if (cells[tappedY][tappedX].getText()=="♛"&&block==0) {useFigyr(chFerz);}//клик по черному ферзю
-        else if (cells[tappedY][tappedX].getText()=="♕"&&block==0) {useFigyr(bFerz);}//клик по белому ферзю
-        else if (cells[tappedY][tappedX].getText()=="♝"&&block==0) {useFigyr(chSlon);}//клик по черному слону
-        else if (cells[tappedY][tappedX].getText()=="♗"&&block==0) {useFigyr(bSlon);}//клик по белому слону
-        else if (cells[tappedY][tappedX].getText()=="♞"&&block==0) {useFigyr(chKonyaka);}//клик по черной лошадке
-        else if (cells[tappedY][tappedX].getText()=="♘"&&block==0) {useFigyr(bKonyaka);}//клик по белой лошадке
-        else if (cells[tappedY][tappedX].getText()=="♜"&&block==0) {useFigyr(chLadia);}//клик по черной ладье
-        else if (cells[tappedY][tappedX].getText()=="♖"&&block==0) {useFigyr(bLadia);}//клик по белой ладье
-        else if (cells[tappedY][tappedX].getText()=="♟"&&block==0) {useFigyr(chPeshka);}//клик по черной пешке
-        else if (cells[tappedY][tappedX].getText()=="♙"&&block==0) {useFigyr(bPeshka);}//клик по белой пешке
-        else  if (cells[tappedY][tappedX].getText()=="\uD83D\uDD39"&&block==0) {search();cells[tappedY][tappedX].setText(l);clrscr();}//клик по шагу
+        else if (cells[tappedY][tappedX].getText()=="♚"&&block==0&& hod.equals("ch")) {useFigyr(chKorol);}//клик по черному королю
+        else if (cells[tappedY][tappedX].getText()=="♔"&&block==0&& hod.equals("b")) {useFigyr(bKorol);}//клик по белому королю
+        else if (cells[tappedY][tappedX].getText()=="♛"&&block==0&& hod.equals("ch")) {useFigyr(chFerz);}//клик по черному ферзю
+        else if (cells[tappedY][tappedX].getText()=="♕"&&block==0&& hod.equals("b")) {useFigyr(bFerz);}//клик по белому ферзю
+        else if (cells[tappedY][tappedX].getText()=="♝"&&block==0&& hod.equals("ch")) {useFigyr(chSlon);}//клик по черному слону
+        else if (cells[tappedY][tappedX].getText()=="♗"&&block==0&& hod.equals("b")) {useFigyr(bSlon);}//клик по белому слону
+        else if (cells[tappedY][tappedX].getText()=="♞"&&block==0&& hod.equals("ch")) {useFigyr(chKonyaka);}//клик по черной лошадке
+        else if (cells[tappedY][tappedX].getText()=="♘"&&block==0&& hod.equals("b")) {useFigyr(bKonyaka);}//клик по белой лошадке
+        else if (cells[tappedY][tappedX].getText()=="♜"&&block==0&& hod.equals("ch")) {useFigyr(chLadia);}//клик по черной ладье
+        else if (cells[tappedY][tappedX].getText()=="♖"&&block==0&& hod.equals("b")) {useFigyr(bLadia);}//клик по белой ладье
+        else if (cells[tappedY][tappedX].getText()=="♟"&&block==0&& hod.equals("ch")) {useFigyr(chPeshka);}//клик по черной пешке
+        else if (cells[tappedY][tappedX].getText()=="♙"&&block==0&& hod.equals("b")) {useFigyr(bPeshka);}//клик по белой пешке
+
+        else  if (cells[tappedY][tappedX].getText()=="\uD83D\uDD39"&&block==0) {
+            search();cells[tappedY][tappedX].setText(l);clrscr();
+            if( hod.equals("b")){hod="ch";} else hod="b";
+        }//клик по шагу
 
         else clrscr();
+
+
 
         enemies();
         pobeda();

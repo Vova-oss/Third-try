@@ -23,7 +23,7 @@ public class BPeshka extends Figyra  {
             cells[tappedY ][tappedX].setText("♕");//смена фигуры на ферзя
         }
         //просмотр хода вперед из начальной позиции
-        if (cells[tappedY][tappedX].getText() == "♙"&&tappedY==1&& cells[tappedY + 2][tappedX].getText()=="") {
+        if (cells[tappedY][tappedX].getText() == "♙"&&tappedY==1&& cells[tappedY + 2][tappedX].getText()==""&& cells[tappedY + 1][tappedX].getText()=="") {
             cells[tappedY + 2][tappedX].setText("\uD83D\uDD39");//выполняется запрос от начальной клетки в сею
             request[tappedY][tappedX] = true;//запрос подтверждается
         }

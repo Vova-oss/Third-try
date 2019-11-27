@@ -19,7 +19,7 @@ import static com.example.sram1.MainActivity.tappedY;
             cells[tappedY ][tappedX].setText("♛");//смена фигуры на ферзя
         }
         //просмотр хода вперед из начальной позиции
-        if (tappedY==6&& cells[tappedY - 2][tappedX].getText()=="") {
+        if (tappedY==6&& cells[tappedY - 2][tappedX].getText()==""&& cells[tappedY - 1][tappedX].getText()=="") {
             cells[tappedY - 2][tappedX].setText("\uD83D\uDD39");//выполняется запрос от данной клетки
             request[tappedY][tappedX] = true;//запрос подтверждается
         }
