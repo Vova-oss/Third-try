@@ -1,62 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.myapplication.MainActivity">
+
+    tools:context=".MainActivity" >
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:text="@string/title" />
+        android:id="@+id/textView2"
+        android:layout_width="366dp"
+        android:layout_height="426dp"
+        android:text="К сожалению, данная функция доступна только для VIP пользователей. Чтобы открыть данный режим игры, вам необходимо перевести 399 рублей на данный кошелек киви, указав ваш ID в комментариях: +7-977-830-13-69"
+        android:textSize="24sp" />
 
-    <EditText
-        android:id="@+id/coefficient_a"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/a" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/coefficient_b"
-        android:hint="@string/b"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/coefficient_c"
-        android:hint="@string/c"/>
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="solveEquation"
-        android:text="@string/calculate"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:id="@+id/result"/>
+        android:id="@+id/button3"
+        android:layout_width="108dp"
+        android:layout_height="68dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="478dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/colorPrimary"
+        android:onClick="Meny"
+        android:text="Вернуться в меню"
+        android:textColor="@android:color/background_dark" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="316dp"
-            android:layout_marginLeft="316dp"
-            android:onClick="Meny"
-            android:text="@string/меню"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.876" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</LinearLayout>
+</RelativeLayout>
