@@ -1,0 +1,43 @@
+package com.example.sram1;
+
+import android.graphics.Color;
+
+import static com.example.sram1.MainActivity.cells;
+import static com.example.sram1.MainActivity.gertva;
+import static com.example.sram1.MainActivity.request;
+import static com.example.sram1.MainActivity.sides;
+import static com.example.sram1.MainActivity.tappedX;
+import static com.example.sram1.MainActivity.tappedY;
+
+public class CHLadia extends Figyra{
+    CHLadia(){super();}
+
+    @Override
+    public void moov() {
+
+        request[tappedY][tappedX] = true;
+        for(int i=tappedY+1;i<8;i++){//просмотр шагов ладьи вниз
+            if(cells[i][tappedX].getText()==""){cells[i][tappedX].setText("\uD83D\uDD39");}
+            else if(sides[i][tappedX]==1){cells[i][tappedX].setBackgroundColor(Color.rgb(255,0,0));gertva[i][tappedX]=true;break;}
+            else break;
+        }
+
+        for(int i=tappedY-1;i>-1;i--){//просмотр шагов ладьи вверх
+            if(cells[i][tappedX].getText()==""){cells[i][tappedX].setText("\uD83D\uDD39");}
+            else if(sides[i][tappedX]==1){cells[i][tappedX].setBackgroundColor(Color.rgb(255,0,0));gertva[i][tappedX]=true;break;}
+            else break;
+        }
+
+        for(int i=tappedX+1;i<8;i++){//просмотр шагов ладьи вправо
+            if(cells[tappedY][i].getText()==""){cells[tappedY][i].setText("\uD83D\uDD39");}
+            else if(sides[tappedY][i]==1){cells[tappedY][i].setBackgroundColor(Color.rgb(255,0,0));gertva[tappedY][i]=true;break;}
+            else break;
+        }
+
+        for(int i=tappedX-1;i>-1;i--){//просмотр шагов ладьи влево
+            if(cells[tappedY][i].getText()==""){cells[tappedY][i].setText("\uD83D\uDD39");}
+            else if(sides[tappedY][i]==1){cells[tappedY][i].setBackgroundColor(Color.rgb(255,0,0));gertva[tappedY][i]=true;break;}
+            else break;
+        }
+    }
+}

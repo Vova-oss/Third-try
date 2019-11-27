@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:scrollbarSize="8dp">
+
+        <HorizontalScrollView
+            android:id="@+id/HorizontalScrollView05"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <GridLayout
+
+                android:id="@+id/CellsLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="900dp"
+                android:background="@android:color/holo_blue_dark"
+                android:paddingLeft="5dp"
+                android:paddingTop="90dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="10dp"
+
+                />
+
+
+        </HorizontalScrollView>
+
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="154dp"
+            android:layout_height="59dp"
+            android:layout_marginStart="260dp"
+            android:layout_marginLeft="260dp"
+            android:layout_marginTop="544dp"
+            android:layout_weight="1"
+            android:background="@drawable/styleknopki"
+            android:onClick="Meny"
+            android:text="Вернуться в меню"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button10"
+            android:layout_width="154dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="544dp"
+            android:layout_marginEnd="256dp"
+            android:layout_marginRight="256dp"
+            android:background="@drawable/styleknopki"
+            android:onClick="shah"
+            android:text="Начать сначала"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ikto"
+            android:layout_width="175dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="512dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.531"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
